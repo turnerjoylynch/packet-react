@@ -8,7 +8,7 @@ import "./Packet.css"
 
 export const Packet = () => (
     <>
-        {/* <Route render={() => {
+        <Route render={() => {
             if (localStorage.getItem("packet_customer")) {
                 return (
                     <>
@@ -19,7 +19,7 @@ export const Packet = () => (
             } else {
                 return <Redirect to="/login" />
             }
-        }} /> */}
+        }} />
 
         <Route path="/login" render={props => <Login {...props} />} />
         <Route path="/register" render={props => <Register {...props} />} />
