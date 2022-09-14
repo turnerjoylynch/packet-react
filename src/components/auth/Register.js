@@ -5,12 +5,13 @@ import "./Login.css"
 export const Register = () => {
     const firstName = useRef()
     const lastName = useRef()
+    const email = useRef()
     const username = useRef()
-    const bio = useRef()
     const password = useRef()
     const verifyPassword = useRef()
     const passwordDialog = useRef()
-    const history = useHistory()
+    const bio = useRef()
+    const navigate = useHistory()
 
     const handleRegister = (e) => {
         e.preventDefault()
@@ -18,9 +19,10 @@ export const Register = () => {
         if (password.current.value === verifyPassword.current.value) {
             const newUser = {
                 "username": username.current.value,
+                // "email": email.current.value,
                 "first_name": firstName.current.value,
                 "last_name": lastName.current.value,
-                // "bio": bio.current.value,
+                "bio": bio.current.value,
                 "password": password.current.value
             }
 
@@ -36,8 +38,7 @@ export const Register = () => {
                 .then(res => {
                     if ("token" in res) {
                         localStorage.setItem("packet_token", res.token)
-                        localStorage.setItem("userId", res.userId)
-                        history.push("/")
+                        navigate.push("/")
                     }
                 })
         } else {
@@ -74,6 +75,10 @@ export const Register = () => {
                 <fieldset>
                     <label htmlFor="verifyPassword"> Verify Password </label>
                     <input ref={verifyPassword} type="password" name="verifyPassword" className="form-control" placeholder="Verify password" required />
+                </fieldset>
+                <fieldset>
+                    <label htmlFor="bio"> Bio </label>
+                    <textarea ref={bio} name="bio" className="form-control" placeholder="Let other PC builders know a little bit about you..." />
                 </fieldset>
                 <fieldset style={{
                     textAlign: "center"

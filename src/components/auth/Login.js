@@ -7,7 +7,7 @@ export const Login = () => {
     const username = useRef()
     const password = useRef()
     const invalidDialog = useRef()
-    const history = useHistory()
+    const navigate = useHistory()
 
     const handleLogin = (e) => {
         e.preventDefault()
@@ -28,7 +28,7 @@ export const Login = () => {
                 if ("valid" in res && res.valid && "token" in res) {
                     localStorage.setItem("daisy_token", res.token)
                     localStorage.setItem("userId", res.userId)
-                    history.push("/")
+                    navigate.push("/")
                 }
                 else {
                     invalidDialog.current.showModal()
