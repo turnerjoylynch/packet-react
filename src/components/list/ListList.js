@@ -35,8 +35,8 @@ export const ListList = () => {
                         return <section key={list.id} className="list">
                             <h2>{list.name}</h2>
 
-                            <h4>Items</h4>
-                            { list.items && list.items.map(a => <div key={`list--${i.id}`}>{i.name}</div>)}
+                            {/* <h4>Items</h4>
+                            { list.items && list.items.map(a => <div key={`list--${i.id}`}>{i.name}</div>)} */}
                         </section>
                     })
                 }
