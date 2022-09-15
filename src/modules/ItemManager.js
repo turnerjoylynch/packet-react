@@ -1,10 +1,18 @@
-export const getItem = () => {
-    return fetch("http://localhost:8000/item")
+export const getAllItems = () => {
+    return fetch("http://localhost:8000/item", {
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("packet_token")}`
+        }
+    })
         .then(res => res.json())
 }
 
 export const getItemById = (id) => {
-    return fetch(`http://localhost:8000/item/${id}`)
+    return fetch(`http://localhost:8000/item/${id}`, {
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("packet_token")}`
+        }
+    })
         .then(res => res.json())
 }
 
@@ -16,5 +24,11 @@ export const addItem = item => {
         },
         body: JSON.stringify(item)
     })
-        .then(getItem)
+        .then(getAllItems)
 }
+
+export const deleteItem = (id) => {
+    return fetch(`http://localhost:8000/item/${id}`, {
+      method: "DELETE"
+    }).then(result => result.json())
+  }

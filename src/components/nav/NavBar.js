@@ -9,6 +9,12 @@ export const NavBar = () => {
             <li className="navbar__item active">
                 <Link className="navbar__link" to="/">Packet</Link>
             </li>
+            <li className="navbar__item active">
+                <Link className="navbar__link" to="/list">List</Link>
+            </li>
+            <li className="navbar__item active">
+                <Link className="navbar__link" to="/item">Item</Link>
+            </li>
             <li className="navbar__item">
                 <Link className="navbar__link" to="/login" onClick={() => localStorage.removeItem("packet_customer")}>Logout</Link>
             </li>
@@ -40,4 +46,4 @@ export const NavBar = () => {
 //     );
 //   }
   
-//   export default NavBar;
+//   export default NavBar();

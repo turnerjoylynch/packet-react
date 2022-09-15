@@ -1,4 +1,4 @@
-export const getList = () => {
+export const getAllLists = () => {
     return fetch("http://localhost:8000/list", {
         headers:{
             "Authorization": `Token ${localStorage.getItem("packet_token")}`
@@ -8,7 +8,11 @@ export const getList = () => {
 }
 
 export const getListById = (id) => {
-    return fetch(`http://localhost:8000/list/${id}`)
+    return fetch(`http://localhost:8000/list/${id}`, {
+        headers:{
+            "Authorization": `Token ${localStorage.getItem("packet_token")}`
+        }
+    })
         .then(res => res.json())
 }
 
@@ -20,5 +24,11 @@ export const addList = list => {
         },
         body: JSON.stringify(list)
     })
-        .then(getList)
+        .then(getAllLists)
 }
+
+export const deleteList = (id) => {
+    return fetch(`http://localhost:8000/list/${id}`, {
+      method: "DELETE"
+    }).then(result => result.json())
+  }

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react"
-import { getItem} from "../../modules/ItemManager";
-import { getList } from "../../modules/ListManager";
+import { getItemById } from "../../modules/ItemManager";
+import { getAllLists } from "../../modules/ListManager";
 import "./List.css"
 
 export const ListList = () => {
@@ -8,19 +8,19 @@ export const ListList = () => {
     const [ lists, setLists ] = useState([])
 
     useEffect(() => {
-        getList().then(listsData => setLists(listsData))
-        getItem().then(itemsData => setItems(itemsData))
+        getAllLists().then(listsData => setLists(listsData))
+        getItemById().then(itemsData => setItems(itemsData))
     }, [])
 
+    // My code seems to kick off an infinite loop when this module loads
     // useEffect(() => {
     //     if (lists && items) {
-    //         getLocations().then(locationsData => {
-    //             const combined = locationsData.map(location => {
-    //                 location.employees = employees.filter(e => e.location_id === location.id)
-    //                 location.animals = animals.filter(a => a.location_id === location.id)
-    //                 return location
+    //         getAllLists().then(listsData => {
+    //             const combined = listsData.map(lists => {
+    //                 lists.items = items.filter(i => i.listId === lists.id)
+    //                 return lists
     //             })
-    //             setLocations(combined)
+    //             setLists(combined)
     //         })
     //     }
     // }, [lists, items])
