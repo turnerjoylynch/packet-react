@@ -11,7 +11,7 @@ export const ItemCard = ({ item, handleDeleteItem}) => {
           <h3> <span className="content-itemname">
             {item.itemName}
           </span></h3>
-          <Link to={`/item/${item.id}`}>
+          <Link to={`/item/${item.itemId}`}>
             <button>Details</button>
           </Link>
           <Link to={`/item/${item.id}/edit`}>

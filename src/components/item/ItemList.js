@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useNavigate } from "react"
+import React, { useEffect, useState, useHistory } from "react"
 import { getAllItems, deleteItem } from "../../modules/ItemManager";
 import "./Item.css"
 import { ItemCard } from "./ItemCard";
@@ -6,7 +6,7 @@ import { ItemCard } from "./ItemCard";
 export const ItemList = () => {
     const [ items, setItems ] = useState([]);
 
-    const navigate = useNavigate();
+    const navigate = useHistory()
 
     const getItems = () => {
         return getAllItems().then(itemsFromAPI => {

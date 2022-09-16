@@ -1,3 +1,5 @@
+const remoteURL = "http://localhost:8000"
+
 export const getAllItems = () => {
     return fetch("http://localhost:8000/item", {
         headers:{
@@ -31,4 +33,14 @@ export const deleteItem = (id) => {
     return fetch(`http://localhost:8000/item/${id}`, {
       method: "DELETE"
     }).then(result => result.json())
+}
+
+export const updateItem = (editedItem) => {
+    return fetch(`${remoteURL}/item/${editedItem.id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(editedItem)
+    }).then(data => data.json());
   }

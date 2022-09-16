@@ -1,3 +1,5 @@
+const remoteURL = "http://localhost:8000"
+
 export const getAllLists = () => {
     return fetch("http://localhost:8000/list", {
         headers:{
@@ -31,4 +33,15 @@ export const deleteList = (id) => {
     return fetch(`http://localhost:8000/list/${id}`, {
       method: "DELETE"
     }).then(result => result.json())
-  }
+}
+
+
+export const updateList = (editedList) => {
+  return fetch(`${remoteURL}/list/${editedList.id}`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(editedList)
+  }).then(data => data.json());
+}
