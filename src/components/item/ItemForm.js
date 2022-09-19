@@ -20,28 +20,45 @@ export const ItemForm = () => {
         provide some default values.
     */
     const [currentItem, setCurrentItem] = useState({
-        name: "",
-        listId: 1
+        listId: 0,
+        name: ""
     })
 
     useEffect(() => {
-        getAllLists().then(setAllLists)
+        getAllLists().then((data) => setAllLists(data))
     }, [])
 
-    const changeItemState = (domEvent) => {
-        const newItemState = {...currentItem}
-        newItemState[domEvent.target.name] = domEvent.target.value
-        setCurrentItem(newItemState)
+    const changeItemState = (domItem) => {
+        const newItem = {...currentItem}
+        newItem[domItem.target.name] = domItem.target.value
+        setCurrentItem(newItem)
     }
 
     return (
         <form className="itemForm">
             <h2 className="itemForm__title">Create New Item</h2>
             <fieldset>
+            <div className="form-group">
+                    <label htmlFor="list">List: </label>
+                    <select name="listId" required autoFocus className="form-control"
+                        value={currentItem.listId}
+                        onChange={changeItemState}>
+                        <option value="0">Select List</option>
+                        {
+                            lists.map((list) => (
+                                <option key={list.id} value={list.id}>
+                                    {list.list_name}
+                                </option>
+                            ))
+                        }
+                    </select>
+                </div>
+            </fieldset>
+            <fieldset>
                 <div className="form-group">
-                    <label htmlFor="title">Name: </label>
-                    <input type="text" name="name" required autoFocus className="form-control"
-                        value={currentItem.name}
+                    <label htmlFor="item_name">Title: </label>
+                    <input type="text" name="item_name" required autoFocus className="form-control"
+                        value={currentItem.item_name}
                         onChange={changeItemState}
                     />
                 </div>
@@ -53,20 +70,18 @@ export const ItemForm = () => {
             </fieldset>
             </div>
             <button type="submit"
-                onClick={evt => {
-                    // Prevent form from being submitted
-                    evt.preventDefault()
+                onClick={t => {
+                    t.preventDefault()
 
                     const item = {
-                        name: currentItem.name,
-                        listId: parseInt(currentItem.listId)
+                        list: parseInt(currentItem.listId),
+                        item_name: currentItem.item_name
                     }
 
-                    // Send POST request to your API
-                    addItem(item)
-                        .then(() => history.push("/item"))
+                    createItem(item)
+                        .then(() => history.push("/"))
                 }}
-                className="btn btn-primary">Create</button>
+                className="btn btn-primary">Add</button>
         </form>
     )
 }

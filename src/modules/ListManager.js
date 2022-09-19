@@ -9,39 +9,48 @@ export const getAllLists = () => {
         .then(res => res.json())
 }
 
-export const getListById = (id) => {
-    return fetch(`http://localhost:8000/list/${id}`, {
+export const getListById = (listId) => {
+    return fetch(`${remoteURL}/list/${listId}`, {
+        method: "GET",
         headers:{
-            "Authorization": `Token ${localStorage.getItem("packet_token")}`
+            "Authorization": `Token ${localStorage.getItem("packet_token")}`,
+            "Content-Type": "application/json"
         }
     })
         .then(res => res.json())
 }
 
-export const addList = list => {
-    return fetch("http://localhost:8000/list", {
+export const addList = (list) => {
+    return fetch(`${remoteURL}/list`, {
         method: "POST",
         headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("packet_token")}`
         },
         body: JSON.stringify(list)
     })
-        .then(getAllLists)
+        .then(res => res.json())
 }
 
 export const deleteList = (id) => {
-    return fetch(`http://localhost:8000/list/${id}`, {
-      method: "DELETE"
-    }).then(result => result.json())
+    return fetch(`${remoteURL}/list/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("packet_token")}`
+      },
+      body: JSON.stringify(id)
+    })
 }
 
 
-export const updateList = (editedList) => {
-  return fetch(`${remoteURL}/list/${editedList.id}`, {
-    method: "PATCH",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify(editedList)
-  }).then(data => data.json());
+export const updateList = (list, listId) => {
+    console.log('updatedList', list)
+    return fetch(`${remoteURL}/list/${listId}`, {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": `Token ${localStorage.getItem("packet_token")}`
+        },
+    body: JSON.stringify(listId)
+  })
 }

@@ -1,66 +1,108 @@
 import React, { useState, useEffect } from "react"
-import {useHistory, useParams} from "react-router-dom";
+import { useHistory, useParams } from 'react-router-dom'
+import { getItemById, updateItem } from "../../modules/ItemManager.js"
+import { getAllLists } from "../../modules/ListManager.js"
 
 export const ItemEditForm = () => {
-    const [item, setItem] = useState({ item_name: ""});
-    const [isLoading, setIsLoading] = useState(false);
-
+    const history = useHistory();
     const {itemId} = useParams();
-    const navigate = useHistory();
+    const [lists, setLists] = useState([]);
 
-    const handleFieldChange = evt => {
-        const stateToChange = { ...item };
-        stateToChange[evt.target.id] = evt.target.value;
-        setItem(stateToChange);
-    };
-
-    const updateExistingItem = evt => {
-        evt.preventDefault()
-        setIsLoading(true);
-
-    // This is an edit, so we need the id
-    const editedItem = {
-      id: itemId,
-      item_name: item.item_name
-    };
-
-    updateItem(editedItem)
-        .then(() => navigate("/item")
-        )
-        }
+    const loadLists = () => {
+        return getAllLists().then(data => {
+          setLists(data)
+        })
+    }
 
     useEffect(() => {
-        getItemById(item)
-        .then(item => {
-            setItem(item);
-            setIsLoading(false);
-        });
-    }, []);
+      loadLists()
+    }, [])
+
+    const [currentItem, setCurrentItem] = useState({
+        item_name: "",
+        listId: 0 
+    })
+
+    const loadItem = () => {
+        if (itemId) {
+            getItemById(itemId)
+                .then(data => {
+                  setCurrentItem({
+                        id: itemId,
+                        item_name: data.item_name,
+                        listId: data.list.id
+                    })
+            })
+        }
+        
+    }
+
+    useEffect(() => {
+      loadItem()
+    }, [])
+
+
+    const handleFieldChange = (domEvent) => {
+        const updatedItem = {...currentItem}
+        let selectedVal = domEvent.target.value
+        updatedItem[domEvent.target.name] = selectedVal
+        setCurrentItem(updatedItem)
+    }
 
     return (
-        <>
-          <form>
+        <form className="itemForm">
+            <h2 className="itemForm__title">Update {currentItem.item_name}</h2>
             <fieldset>
-              <div className="formgrid">
-                <input
-                  type="text"
-                  required
-                  className="form-control"
-                  onChange={handleFieldChange}
-                  id="itemName"
-                  value={item.item_name}
-                />
-                <label htmlFor="name">Item name</label>
-              </div>
-              <div className="alignRight">
-                <button
-                  type="button" disabled={isLoading}
-                  onClick={updateExistingItem}
-                  className="btn btn-primary"
-                >Submit</button>
-              </div>
+                <div className="form-group">
+                    <label htmlFor="list">List: </label>
+                    <select 
+                        name="listId"
+                        id="list"
+                        required
+                        className="form-control"
+                        value={currentItem.listId}
+                        onChange={handleFieldChange}>
+                        {
+                            lists.map((list) => (
+                                <option key={list.id} value={list.id}>
+                                    {list.list_name}
+                                </option>
+                            ))
+                        }
+                    </select>
+                </div>
             </fieldset>
-          </form>
-        </>
-      );
-    }
+            <fieldset>
+                <div className="form-group">
+                    <label htmlFor="title">Name: </label>
+                    <input 
+                        type="text" 
+                        name="title" 
+                        id="title"
+                        required autoFocus 
+                        className="form-control"
+                        value={currentItem.item_name}
+                        onChange={handleFieldChange}
+                        
+                    />
+                </div>
+            </fieldset>
+
+            <button type="submit"
+                onClick={t => {
+                    t.preventDefault()
+
+                    const editedItem = {
+                        id: itemId,
+                        lists: parseInt(currentItem.listId),
+                        item_name: currentItem.item_name
+                    }
+                    
+                    updateItem(editedItem, itemId)
+                        .then(() => history.push('/'))
+                }}
+                className="btn btn-primary" 
+                id="createBtn">Update</button>
+        </form>
+    )
+}

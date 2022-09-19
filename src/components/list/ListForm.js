@@ -1,13 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useHistory } from 'react-router-dom'
-import { addList } from './ListManager.js'
+import { addList } from "../../modules/ListManager";
 import "./List.css"
-
-export const List = () => (
-    <section className="list">
-        <h3 className="list__name">List.js List text display</h3>
-    </section>
-)
 
 export const ListForm = () => {
     const history = useHistory()
@@ -23,28 +17,35 @@ export const ListForm = () => {
         setCurrentList(newListState)
     }
 
+    const handleSubmit = p => {
+        p.preventDefault()
+
+        const list = {
+            list_name: currentList.list_name
+        }
+
+        addList(list)
+            .then(() => history.push("/list"))
+    }
+
+
     return (
         <form className="listForm">
             <h2 className="listForm__title">Create New List</h2>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="title">Title: </label>
-                    <input type="text" name="title" required autoFocus className="form-control"
+                    <label htmlFor="list_name">Title: </label>
+                    <input type="text" name="list_name" required autoFocus className="form-control"
                         value={currentList.list_name}
                         onChange={changeListState}
                     />
                 </div>
             </fieldset>
 
-            <div>
-            <fieldset> 
-                <div className="form-group"> Create New List </div>
-            </fieldset>
-            </div>
             <button type="submit"
-                onClick={evt => {
+                onClick={p => {
                     // Prevent form from being submitted
-                    evt.preventDefault()
+                    p.preventDefault()
 
                     const list = {
                         list_name: currentList.list_name
@@ -52,7 +53,7 @@ export const ListForm = () => {
 
                     // Send POST request to your API
                     addList(list)
-                        .then(() => history.push("/list"))
+                        .then(() => history.push("/"))
                 }}
                 className="btn btn-primary">Create List</button>
         </form>

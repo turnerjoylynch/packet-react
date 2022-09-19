@@ -9,8 +9,8 @@ export const ItemList = () => {
     const navigate = useHistory()
 
     const getItems = () => {
-        return getAllItems().then(itemsFromAPI => {
-            setItems(itemsFromAPI)
+        return getAllItems().then(data => {
+            setItems(data)
         });
     };
 
