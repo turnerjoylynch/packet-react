@@ -33,8 +33,8 @@ export const ApplicationViews = () => {
                 <Route exact path="/item/:itemId(\d+)">
                     <ItemDetail />
                 </Route>
-                {/* <Route exact path="/item/:itemId(\d+)/edit">
+                <Route exact path="/item/:itemId(\d+)/edit">
                     <ItemEditForm />
-                </Route> */}
+                </Route>
     </>
 }

@@ -39,7 +39,7 @@ export const ItemEditForm = () => {
 
     useEffect(() => {
       loadItem()
-    }, [])
+    }, [itemId])
 
 
     const handleFieldChange = (domEvent) => {

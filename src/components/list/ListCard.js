@@ -1,30 +1,16 @@
 import React, { useState, useEffect } from "react";
-import { Card, CardGroup, Button, ListGroup, Nav } from "react-bootstrap";
+import { Card, CardGroup, Button, ListGroup } from "react-bootstrap";
 import { useParams, Link } from "react-router-dom"
 import "./List.css"
 import "../../modules/ListManager"
 import { getListById } from "../../modules/ListManager";
 import { deleteItem } from "../../modules/ItemManager";
 
-export const ListCard = () => {
-    const {listId} = useParams();
-    
-
-    const [ list, setList ] = useState([{
-        list_name: "",
-        items: [{
-            item_name: ""
-        }],
-    }])
-
-
-    useEffect(() => {
-        getListById(listId).then(data => setList(data))
-    }, [])
+export const ListCard = ({ list }) => {
 
 
     const itemList = list.items?.map(item =>
-        <CardGroup >
+        <CardGroup key={item.id}>
             <Card border="info">
                 <Card.Body>
                     <Card.Subtitle>{item.item_name}</Card.Subtitle>
@@ -32,14 +18,14 @@ export const ListCard = () => {
                     <Card.Text style={{fontSize:"14px"}}>Note: {task.note}</Card.Text> */}
                     <Card.Text className="text-center">
                         <Link to={`list/${list.id}`}>
-                            <Button variant="outline-danger" size="sm" onClick={() => {deleteItem(item.id)}}>x</Button>
+                            <Button variant="outline-danger" size="sm" onClick={() => { deleteItem(item.id) }}>x</Button>
                         </Link>
                     </Card.Text>
                 </Card.Body>
             </Card>
         </CardGroup>
     )
-    
+
 
     return (
         <Card >
@@ -47,7 +33,7 @@ export const ListCard = () => {
                 <Card.Title className="text-center">{list.list_name} </Card.Title>
                 {/* <Card.Subtitle className="mb-2 text-muted text-center" style={{fontSize:"12px"}}> Date: {project.date} </Card.Subtitle>
                 <Card.Text style={{fontSize:"15px"}}> Description: {project.description} </Card.Text> */}
-                <Card.Header style={{fontSize:"20px"}}>Items <Button variant="outline-success" size="sm"  href="/items/new"> + </Button></Card.Header>
+                <Card.Header style={{ fontSize: "20px" }}>Items <Button variant="outline-success" size="sm" href="/item/create"> + </Button></Card.Header>
                 <Card.Body>
                     <ListGroup className="list-group-flush">
                         <ListGroup.Item>
@@ -56,11 +42,12 @@ export const ListCard = () => {
                     </ListGroup>
                 </Card.Body>
                 <Card.Footer className="text-center">
-                    <Link to={`list/${list.id}/update`}><Button variant="warning" size="sm"> Edit List </Button></Link>
+                    <Link to={`list/${list.id}/edit`}><Button variant="warning" size="sm"> Edit List </Button></Link>
+                    <Link to={`list/${list.id}`}><Button variant="warning" size="sm"> List Details </Button></Link>
                 </Card.Footer>
             </Card.Body>
         </Card>
-      );
+    );
 
 
 

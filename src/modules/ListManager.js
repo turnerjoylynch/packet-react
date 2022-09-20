@@ -2,7 +2,7 @@ const remoteURL = "http://localhost:8000"
 
 export const getAllLists = () => {
     return fetch("http://localhost:8000/list", {
-        headers:{
+        headers: {
             "Authorization": `Token ${localStorage.getItem("packet_token")}`
         }
     })
@@ -10,9 +10,10 @@ export const getAllLists = () => {
 }
 
 export const getListById = (listId) => {
+    console.log(listId)
     return fetch(`${remoteURL}/list/${listId}`, {
         method: "GET",
-        headers:{
+        headers: {
             "Authorization": `Token ${localStorage.getItem("packet_token")}`,
             "Content-Type": "application/json"
         }
@@ -34,11 +35,11 @@ export const addList = (list) => {
 
 export const deleteList = (id) => {
     return fetch(`${remoteURL}/list/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Authorization": `Token ${localStorage.getItem("packet_token")}`
-      },
-      body: JSON.stringify(id)
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("packet_token")}`
+        },
+        body: JSON.stringify(id)
     })
 }
 
@@ -51,6 +52,6 @@ export const updateList = (list, listId) => {
             "Content-Type": "application/json",
             "Authorization": `Token ${localStorage.getItem("packet_token")}`
         },
-    body: JSON.stringify(listId)
-  })
+        body: JSON.stringify(listId)
+    })
 }

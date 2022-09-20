@@ -5,7 +5,7 @@ import { updateList, deleteList, getListById } from "../../modules/ListManager.j
 export const ListEditForm = () => {
     const history = useHistory();
     const {listId} = useParams();
-    const [isLoading, setIsLoading] = useState(true);
+    // const [isLoading, setIsLoading] = useState(true);
 
     const [currentList, setCurrentList] = useState({ list_name: ""});
 
@@ -23,8 +23,8 @@ export const ListEditForm = () => {
     }
     
     useEffect(() => {
-        loadList()
-    }, [])
+        loadList(listId)
+    }, [listId])
 
 
     const handleFieldChange = (domEvent) => {
@@ -43,11 +43,11 @@ export const ListEditForm = () => {
                   type="text"
                   required
                   className="form-control"
-                  id="listName"
+                  id="list_name"
                   value={currentList.list_name}
                   onChange={handleFieldChange}
                 />
-                <label htmlFor="name"> List name</label>
+                <label htmlFor="list_name"> List name</label>
               </div>
               <button type="submit"
                 onClick={p => {
