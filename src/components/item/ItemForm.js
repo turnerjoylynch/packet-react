@@ -4,11 +4,6 @@ import { getAllLists } from "../../modules/ListManager.js"
 import { addItem } from "../../modules/ItemManager.js"
 import "./Item.css"
 
-// export const Item = () => (
-//     <section className="item">
-//         <h3 className="item__name">Itemz</h3>
-//     </section>
-// )
 
 export const ItemForm = () => {
     const history = useHistory()
