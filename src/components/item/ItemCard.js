@@ -1,23 +1,22 @@
 import React from "react"
 import { Link } from 'react-router-dom';
+import { Button } from "react-bootstrap";
 import "./Item.css"
 import "../../modules/ItemManager"
 
 
-export const ItemCard = ({ item, handleDeleteItem}) => {
+
+export const ItemCard = ({ item, deleteItem }) => {
     return (
       <div className="card">
         <div className="card-content">
           <h3> <span className="content-itemname">
-            {item.itemName}
+            {item.item_name}
           </span></h3>
-          <Link to={`/item/${item.id}`}>
-            <button>Details</button>
-          </Link>
           <Link to={`/item/${item.id}/edit`}>
             <button>Edit</button>
           </Link>
-          <button type="button" onClick={() => handleDeleteItem(item.id)}>Delete</button>
+          <Button variant="outline-danger" size="sm" onClick={() => { deleteItem(item.id) }}>x</Button>
         </div>
       </div>
     );

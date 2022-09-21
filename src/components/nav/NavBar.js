@@ -15,9 +15,9 @@ export const NavBar = () => {
             <li className="navbar__item active">
                 <Link className="navbar__link" to="/list/create">Create List</Link>
             </li>
-            {/* <li className="navbar__item active">
+            <li className="navbar__item active">
                 <Link className="navbar__link" to="/item">Item</Link>
-            </li> */}
+            </li>
             <li className="navbar__item">
                 <Link className="navbar__link" to="/login" onClick={() => localStorage.removeItem("packet_customer")}>Logout</Link>
             </li>

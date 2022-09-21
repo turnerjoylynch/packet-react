@@ -1,27 +1,19 @@
-import React, { useEffect, useState, useHistory } from "react"
+import React, { useEffect, useState } from "react"
+import { useHistory } from 'react-router-dom'
 import { getAllItems, deleteItem } from "../../modules/ItemManager";
 import "./Item.css"
 import { ItemCard } from "./ItemCard";
 
 export const ItemList = () => {
-    const [ items, setItems ] = useState([]);
+    const [items, setItem] = useState([])
     const history = useHistory()
-
-    const getItems = () => {
-        return getAllItems().then(data => {
-            setItems(data)
-        });
-    };
+    const handleItemDelete = (id) => {
+        deleteItem(id).then(() => getAllItems().then(data => setItem(data)))
+    }
 
     useEffect(() => {
-        getItems();
-    }, []);
-
-    const handleDeleteItem = id => {
-        deleteItem(id)
-        .then(() => getAllItems().then(setItems));
-    };
-
+        getAllItems().then(data => setItem(data))
+    }, [])
 
     return (
         <>
@@ -29,21 +21,21 @@ export const ItemList = () => {
 
                 <button className="btn"
                     onClick={() => {
-                        history.push({ pathname: `/idea/create` })
+                        history.push({ pathname: `/item/create` })
                     }}
-                >Create New Idea</button>
+                >Create New Item</button>
 
             </div>
-            <article className="lists__list">
-                <h2>All Ideas</h2>
+            <article className="items__list">
+                <h2>All Items</h2>
                 {items.map(item =>
                     <ItemCard
                         key={item.id}
                         item={item}
-                        />
+                        deleteItem={handleItemDelete} />
                 )}
             </article>
-            
+
 
         </>
     )
