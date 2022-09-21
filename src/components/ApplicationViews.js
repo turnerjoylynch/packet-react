@@ -6,6 +6,7 @@ import { ListEditForm } from "./list/ListEditForm.js"
 import { ListForm } from "./list/ListForm.js"
 import { ItemList } from "./item/ItemList.js"
 import { ItemDetail } from "./item/ItemDetail.js"
+import { ItemForm } from "./item/ItemForm.js"
 import { ItemEditForm } from "./item/ItemEditForm.js"
 import { Home } from "../Home.js"
 
@@ -29,6 +30,9 @@ export const ApplicationViews = () => {
                 </Route>
                 <Route exact path="/item">
                     <ItemList />
+                </Route>
+                <Route exact path="/item/create">
+                    <ItemForm />
                 </Route>
                 <Route exact path="/item/:itemId(\d+)">
                     <ItemDetail />

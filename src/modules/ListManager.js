@@ -21,7 +21,7 @@ export const getListById = (listId) => {
         .then(res => res.json())
 }
 
-export const addList = (list) => {
+export const addList = list => {
     return fetch(`${remoteURL}/list`, {
         method: "POST",
         headers: {
@@ -30,7 +30,7 @@ export const addList = (list) => {
         },
         body: JSON.stringify(list)
     })
-        .then(res => res.json())
+        .then(getAllLists)
 }
 
 export const deleteList = (id) => {

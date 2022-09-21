@@ -59,7 +59,7 @@ export const ListEditForm = () => {
                     }
                     
                     updateList(editedList, listId)
-                        .then(() => history.push('/'))
+                        .then(() => history.push('/list'))
                 }}
                 className="btn btn-primary" 
                 id="createBtn">Update</button>

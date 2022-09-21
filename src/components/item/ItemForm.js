@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react"
 import { useHistory } from 'react-router-dom'
-import { getAllLists } from './ListManager.js'
-import { addItem  } from './ItemManager.js'
+import { getAllLists } from "../../modules/ListManager.js"
+import { addItem } from "../../modules/ItemManager.js"
 import "./Item.css"
 
 // export const Item = () => (
@@ -20,8 +20,8 @@ export const ItemForm = () => {
         provide some default values.
     */
     const [currentItem, setCurrentItem] = useState({
-        listId: 0,
-        name: ""
+        item_name: "",
+        lists: []
     })
 
     useEffect(() => {
@@ -29,16 +29,26 @@ export const ItemForm = () => {
     }, [])
 
     const changeItemState = (domItem) => {
-        const newItem = {...currentItem}
-        newItem[domItem.target.name] = domItem.target.value
+        const newItem = { ...currentItem }
+        const name = domItem.target.name
+        if (name === 'listId') {
+            const id = parseInt(domItem.target.value)
+            if (!newItem['lists'].includes(id)) {
+                newItem['lists'].push(id)
+            }
+        }
+        else {
+            newItem[name] = domItem.target.value
+        }
         setCurrentItem(newItem)
+        console.log(currentItem)
     }
 
     return (
         <form className="itemForm">
             <h2 className="itemForm__title">Create New Item</h2>
             <fieldset>
-            <div className="form-group">
+                <div className="form-group">
                     <label htmlFor="list">List: </label>
                     <select name="listId" required autoFocus className="form-control"
                         value={currentItem.listId}
@@ -56,7 +66,7 @@ export const ItemForm = () => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="item_name">Title: </label>
+                    <label htmlFor="item_name">Item Name: </label>
                     <input type="text" name="item_name" required autoFocus className="form-control"
                         value={currentItem.item_name}
                         onChange={changeItemState}
@@ -65,21 +75,21 @@ export const ItemForm = () => {
             </fieldset>
 
             <div>
-            <fieldset> 
-                <div className="form-group"> Create New Item </div>
-            </fieldset>
+                <fieldset>
+                    <div className="form-group"> Create New Item </div>
+                </fieldset>
             </div>
             <button type="submit"
                 onClick={t => {
                     t.preventDefault()
 
                     const item = {
-                        list: parseInt(currentItem.listId),
+                        lists: currentItem.lists,
                         item_name: currentItem.item_name
                     }
 
-                    createItem(item)
-                        .then(() => history.push("/"))
+                    addItem(item)
+                        .then(() => history.push("/list"))
                 }}
                 className="btn btn-primary">Add</button>
         </form>

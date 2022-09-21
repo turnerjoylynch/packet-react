@@ -32,6 +32,7 @@ export const addItem = item => {
     return fetch("http://localhost:8000/item", {
         method: "POST",
         headers: {
+            "Authorization": `Token ${localStorage.getItem("packet_token")}`,
             "Content-Type": "application/json"
         },
         body: JSON.stringify(item)
@@ -41,14 +42,19 @@ export const addItem = item => {
 
 export const deleteItem = (id) => {
     return fetch(`http://localhost:8000/item/${id}`, {
-      method: "DELETE"
-    }).then(result => result.json())
+      method: "DELETE",
+      headers: {
+        "Authorization": `Token ${localStorage.getItem("packet_token")}`
+    },
+    body: JSON.stringify(id)      
+    })
 }
 
 export const updateItem = (editedItem) => {
     return fetch(`${remoteURL}/item/${editedItem.id}`, {
       method: "PATCH",
       headers: {
+        "Authorization": `Token ${localStorage.getItem("packet_token")}`,
         "Content-Type": "application/json"
       },
       body: JSON.stringify(editedItem)
