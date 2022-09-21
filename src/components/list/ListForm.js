@@ -10,7 +10,7 @@ export const ListForm = () => {
 
     const [currentList, setCurrentList] = useState({
         list_name: "",
-        itemId: 0
+        items: []
     })
 
     useEffect(() => {
@@ -19,8 +19,18 @@ export const ListForm = () => {
 
     const changeListState = (domList) => {
         const newList = {...currentList}
-        newList[domList.target.name] = domList.target.value
+        const name = domList.target.name
+        if (name === 'itemId') {
+            const id = parseInt(domList.target.value)
+            if (!newList['items'].includes(id)) {
+                newList['items'].push(id)
+            }
+        }
+        else {
+            newList[name] = domList.target.value
+        }
         setCurrentList(newList)
+        console.log(currentList)
     }
 
 
@@ -41,7 +51,7 @@ export const ListForm = () => {
             <div className="form-group">
                     <label htmlFor="items">Items: </label>
                     <select name="itemId" required autoFocus className="form-control"
-                        value={currentList.items}
+                        value={currentList.itemId}
                         onChange={changeListState}>
                         <option value="0">Select Items</option>
                         {
@@ -65,7 +75,8 @@ export const ListForm = () => {
                     t.preventDefault()
 
                     const list = {
-                        list_name: currentList.list_name
+                        list_name: currentList.list_name,
+                        items: currentList.items
                     }
 
                     // Send POST request to your API
