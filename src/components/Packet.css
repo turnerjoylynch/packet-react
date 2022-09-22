@@ -37,3 +37,8 @@ strong {
 address {
   margin: 0 0 1.5em;
 }
+
+html {
+  width: 100%;
+  height: 100%;
+}

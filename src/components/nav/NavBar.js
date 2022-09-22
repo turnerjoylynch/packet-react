@@ -1,11 +1,15 @@
 import React from "react"
-import { Link } from "react-router-dom"
+import { Link, useHistory } from "react-router-dom"
 import "./NavBar.css"
-// import Nav from 'react-bootstrap/Nav';
+import Container from 'react-bootstrap/Container';
+import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 
 export const NavBar = () => {
     return (
+
         <ul className="navbar">
+
             <li className="navbar__item active">
                 <Link className="navbar__link" to="/">Packet</Link>
             </li>
@@ -21,32 +25,27 @@ export const NavBar = () => {
             <li className="navbar__item">
                 <Link className="navbar__link" to="/login" onClick={() => localStorage.removeItem("packet_customer")}>Logout</Link>
             </li>
+
         </ul>
     )
 }
 
+
 // function NavBar() {
-//     return (
-//       <Nav
-//         activeKey="/home"
-//         onSelect={(selectedKey) => alert(`selected ${selectedKey}`)}
-//       >
-//         <Nav.Item>
-//           <Nav.Link href="/home">Packet</Nav.Link>
-//         </Nav.Item>
-//         {/* <Nav.Item>
-//           <Nav.Link eventKey="link-1">Link</Nav.Link>
-//         </Nav.Item>
-//         <Nav.Item>
-//           <Nav.Link eventKey="link-2">Packet</Nav.Link>
-//         </Nav.Item> */}
-//         <Nav.Item>
-//           <Nav.Link eventKey="/login" onClick={() => localStorage.removeItem("packet_customer")}>
-//             Logout
-//           </Nav.Link>
-//         </Nav.Item>
-//       </Nav>
-//     );
-//   }
-  
-//   export default NavBar();
+//   return (
+//     <Navbar bg="dark" expand="lg" variant="dark">
+//       <Container>
+//         <Navbar.Brand href="#home">Packet</Navbar.Brand>
+//         <Navbar.Toggle aria-controls="basic-navbar-nav" />
+//         <Navbar.Collapse id="basic-navbar-nav">
+//           <Nav className="me-auto">
+//             <Nav.Link href="#list" to="/list">List</Nav.Link>
+//             <Nav.Link href="#link" to="/list/create">Create List</Nav.Link>
+//           </Nav>
+//         </Navbar.Collapse>
+//       </Container>
+//     </Navbar>
+//   );
+// }
+
+// export default NavBar;

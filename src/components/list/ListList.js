@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react"
 import { useHistory } from 'react-router-dom'
 import { getAllLists } from "../../modules/ListManager";
+import { Button } from "react-bootstrap";
 import "./List.css"
 import { ListCard } from "./ListCard";
 
@@ -16,15 +17,15 @@ export const ListList = () => {
         <>
             <div className="container-cards">
 
-                <button className="btn"
+            <Button variant="outline-success" size="md"
                     onClick={() => {
                         history.push({ pathname: `/list/create` })
                     }}
-                >Create New List</button>
+                >Create New List</Button>
 
             </div>
             <article className="lists__list">
-                <h2>All Lists</h2>
+            <center><h2>All Lists</h2></center>
                 {lists.map(list =>
                     <ListCard
                         key={list.id}

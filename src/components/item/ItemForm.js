@@ -84,7 +84,7 @@ export const ItemForm = () => {
                     }
 
                     addItem(item)
-                        .then(() => history.push("/list"))
+                        .then(() => history.push("/item"))
                 }}
                 className="btn btn-primary">Add</button>
         </form>

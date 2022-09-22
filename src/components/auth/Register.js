@@ -19,7 +19,7 @@ export const Register = () => {
         if (password.current.value === verifyPassword.current.value) {
             const newUser = {
                 "username": username.current.value,
-                // "email": email.current.value,
+                "email": email.current.value,
                 "first_name": firstName.current.value,
                 "last_name": lastName.current.value,
                 "bio": bio.current.value,
@@ -65,6 +65,10 @@ export const Register = () => {
                     <input ref={lastName} type="text" name="lastName" className="form-control" placeholder="Last name" required />
                 </fieldset>
                 <fieldset>
+                    <label htmlFor="inputEmail">Email</label>
+                    <input ref={email} type="text" name="email" className="form-control" placeholder="Email" required />
+                </fieldset>
+                <fieldset>
                     <label htmlFor="inputUsername">Username</label>
                     <input ref={username} type="text" name="username" className="form-control" placeholder="Username" required />
                 </fieldset>
@@ -78,7 +82,7 @@ export const Register = () => {
                 </fieldset>
                 <fieldset>
                     <label htmlFor="bio"> Bio </label>
-                    <textarea ref={bio} name="bio" className="form-control" placeholder="Tell us abut yourself!" />
+                    <textarea ref={bio} name="bio" className="form-control" placeholder="Tell us about yourself!" />
                 </fieldset>
                 <fieldset style={{
                     textAlign: "center"
