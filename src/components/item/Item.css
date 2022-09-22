@@ -1,0 +1,10 @@
+.card {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    margin: 5
+}
+
+.card-content {
+    margin: 5
+}

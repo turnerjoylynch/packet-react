@@ -5,48 +5,66 @@ import { getAllLists } from "../../modules/ListManager.js"
 
 export const ItemEditForm = () => {
     const history = useHistory();
-    const {itemId} = useParams();
+    const { itemId } = useParams();
     const [lists, setLists] = useState([]);
 
     const loadLists = () => {
         return getAllLists().then(data => {
-          setLists(data)
+            setLists(data)
         })
     }
 
     useEffect(() => {
-      loadLists()
+        loadLists()
     }, [])
 
     const [currentItem, setCurrentItem] = useState({
         item_name: "",
-        listId: 0 
+        lists: [],
+        created_on: ""
     })
 
     const loadItem = () => {
         if (itemId) {
             getItemById(itemId)
                 .then(data => {
-                  setCurrentItem({
+                    setCurrentItem({
                         id: itemId,
                         item_name: data.item_name,
-                        listId: data.list.id
+                        lists: data.lists,
+                        created_on: data.created_on
                     })
-            })
+                })
         }
-        
+
     }
 
     useEffect(() => {
-      loadItem()
+        loadItem()
     }, [itemId])
 
 
-    const handleFieldChange = (domEvent) => {
-        const updatedItem = {...currentItem}
-        let selectedVal = domEvent.target.value
-        updatedItem[domEvent.target.name] = selectedVal
-        setCurrentItem(updatedItem)
+    // const handleFieldChange = (domEvent) => {
+    //     const updatedItem = {...currentItem}
+    //     let selectedVal = domEvent.target.value
+    //     updatedItem[domEvent.target.name] = selectedVal
+    //     setCurrentItem(updatedItem)
+    // }
+
+    const handleFieldChange = (domItem) => {
+        const newItem = { ...currentItem }
+        const name = domItem.target.name
+        if (name === 'listId') {
+            const id = parseInt(domItem.target.value)
+            if (!newItem['lists'].includes(id)) {
+                newItem['lists'].push(id)
+            }
+        }
+        else {
+            newItem[name] = domItem.target.value
+        }
+        setCurrentItem(newItem)
+        console.log(currentItem)
     }
 
     return (
@@ -55,12 +73,12 @@ export const ItemEditForm = () => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="list">List: </label>
-                    <select 
+                    <select
                         name="listId"
                         id="list"
                         required
                         className="form-control"
-                        value={currentItem.listId}
+                        value=""
                         onChange={handleFieldChange}>
                         {
                             lists.map((list) => (
@@ -75,15 +93,15 @@ export const ItemEditForm = () => {
             <fieldset>
                 <div className="form-group">
                     <label htmlFor="title">Name: </label>
-                    <input 
-                        type="text" 
-                        name="title" 
-                        id="title"
-                        required autoFocus 
+                    <input
+                        type="text"
+                        name="item_name"
+                        id="item_name"
+                        required autoFocus
                         className="form-control"
                         value={currentItem.item_name}
                         onChange={handleFieldChange}
-                        
+
                     />
                 </div>
             </fieldset>
@@ -94,14 +112,15 @@ export const ItemEditForm = () => {
 
                     const editedItem = {
                         id: itemId,
-                        lists: parseInt(currentItem.listId),
-                        item_name: currentItem.item_name
+                        lists: currentItem.lists,
+                        item_name: currentItem.item_name,
+                        created_on: currentItem.created_on
                     }
-                    
-                    updateItem(editedItem, itemId)
-                        .then(() => history.push('/'))
+
+                    updateItem(editedItem)
+                        .then(() => history.push('/item'))
                 }}
-                className="btn btn-primary" 
+                className="btn btn-primary"
                 id="createBtn">Update</button>
         </form>
     )

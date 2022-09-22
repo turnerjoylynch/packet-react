@@ -2,7 +2,7 @@ const remoteURL = "http://localhost:8000"
 
 export const getAllItems = () => {
     return fetch(`${remoteURL}/item`, {
-        headers:{
+        headers: {
             "Authorization": `Token ${localStorage.getItem("packet_token")}`
         }
     })
@@ -11,7 +11,7 @@ export const getAllItems = () => {
 
 export const getItemById = (id) => {
     return fetch(`${remoteURL}/item/${id}`, {
-        headers:{
+        headers: {
             "Authorization": `Token ${localStorage.getItem("packet_token")}`
         }
     })
@@ -20,7 +20,7 @@ export const getItemById = (id) => {
 
 export const getItemByListId = (listId) => {
     return fetch(`${remoteURL}/item/${listId}`, {
-        headers:{
+        headers: {
             "Authorization": `Token ${localStorage.getItem("packet_token")}`,
             "Content-Type": "application/json"
         },
@@ -42,21 +42,21 @@ export const addItem = item => {
 
 export const deleteItem = (id) => {
     return fetch(`http://localhost:8000/item/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Authorization": `Token ${localStorage.getItem("packet_token")}`
-    },
-    body: JSON.stringify(id)      
+        method: "DELETE",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("packet_token")}`
+        },
+        body: JSON.stringify(id)
     })
 }
 
 export const updateItem = (editedItem) => {
     return fetch(`${remoteURL}/item/${editedItem.id}`, {
-      method: "PATCH",
-      headers: {
-        "Authorization": `Token ${localStorage.getItem("packet_token")}`,
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify(editedItem)
-    }).then(data => data.json());
-  }
+        method: "PUT",
+        headers: {
+            "Authorization": `Token ${localStorage.getItem("packet_token")}`,
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(editedItem)
+    })
+}

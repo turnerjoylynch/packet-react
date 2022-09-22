@@ -38,20 +38,19 @@ export const deleteList = (id) => {
         method: "DELETE",
         headers: {
             "Authorization": `Token ${localStorage.getItem("packet_token")}`
-        },
-        body: JSON.stringify(id)
+        }
     })
 }
 
 
-export const updateList = (list, listId) => {
+export const updateList = (list ) => {
     console.log('updatedList', list)
-    return fetch(`${remoteURL}/list/${listId}`, {
+    return fetch(`${remoteURL}/list/${list.id}`, {
         method: "PUT",
         headers: {
             "Content-Type": "application/json",
             "Authorization": `Token ${localStorage.getItem("packet_token")}`
         },
-        body: JSON.stringify(listId)
+        body: JSON.stringify(list)
     })
 }

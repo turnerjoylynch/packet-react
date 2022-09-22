@@ -26,9 +26,10 @@ export const Login = () => {
             .then(res => res.json())
             .then(res => {
                 if ("valid" in res && res.valid && "token" in res) {
-                    localStorage.setItem("daisy_token", res.token)
+                    localStorage.setItem("packet_token", res.token)
                     localStorage.setItem("userId", res.userId)
-                    navigate.push("/")
+                    navigate.push("/list")
+                    console.log(res.userId)
                 }
                 else {
                     invalidDialog.current.showModal()
@@ -48,7 +49,7 @@ export const Login = () => {
                     <h2>Please sign in</h2>
                     <fieldset>
                         <label htmlFor="inputUsername">Username</label>
-                        <input ref={username} type="username" id="username" className="form-control" placeholder="Username address" required autoFocus />
+                        <input ref={username} type="username" id="username" className="form-control" placeholder="Username " required autoFocus />
                     </fieldset>
                     <fieldset>
                         <label htmlFor="inputPassword">Password</label>

@@ -3,7 +3,7 @@ import { Card, CardGroup, Button, ListGroup } from "react-bootstrap";
 import { useParams, Link } from "react-router-dom"
 import "./List.css"
 import "../../modules/ListManager"
-import { getListById } from "../../modules/ListManager";
+import { getListById, deleteList } from "../../modules/ListManager";
 import { deleteItem } from "../../modules/ItemManager";
 
 export const ListCard = ({ list }) => {
@@ -11,6 +11,7 @@ export const ListCard = ({ list }) => {
 
     const itemList = list.items?.map(item =>
         <CardGroup key={item.id}>
+            
             <Card border="info">
                 <Card.Body>
                     <Card.Subtitle>{item.item_name}</Card.Subtitle>
@@ -42,8 +43,9 @@ export const ListCard = ({ list }) => {
                     </ListGroup>
                 </Card.Body>
                 <Card.Footer className="text-center">
-                    <Link to={`list/${list.id}/edit`}><Button variant="warning" size="sm"> Edit List </Button></Link>
-                    <Link to={`list/${list.id}`}><Button variant="warning" size="sm"> List Details </Button></Link>
+                    <Link to={`list/${list.id}/edit`}><Button variant="outline-info" size="sm"> Edit List </Button></Link>{' '}
+                    <Link to={`list/${list.id}`}><Button variant="outline-warning" size="sm"> List Details </Button></Link>{' '}
+                    <Button variant="outline-danger" size="sm" onClick={() => { deleteList(list.id) }}>Delete List</Button>
                 </Card.Footer>
             </Card.Body>
         </Card>

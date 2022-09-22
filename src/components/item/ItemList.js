@@ -1,49 +1,42 @@
-import React, { useEffect, useState, useHistory } from "react"
+import React, { useEffect, useState } from "react"
+import { useHistory } from 'react-router-dom'
+import { Button } from "react-bootstrap";
 import { getAllItems, deleteItem } from "../../modules/ItemManager";
 import "./Item.css"
 import { ItemCard } from "./ItemCard";
 
 export const ItemList = () => {
-    const [ items, setItems ] = useState([]);
+    const [items, setItem] = useState([])
     const history = useHistory()
-
-    const getItems = () => {
-        return getAllItems().then(data => {
-            setItems(data)
-        });
-    };
+    const handleItemDelete = (id) => {
+        deleteItem(id).then(() => getAllItems().then(data => setItem(data)))
+    }
 
     useEffect(() => {
-        getItems();
-    }, []);
-
-    const handleDeleteItem = id => {
-        deleteItem(id)
-        .then(() => getAllItems().then(setItems));
-    };
-
+        getAllItems().then(data => setItem(data))
+    }, [])
 
     return (
         <>
             <div className="container-cards">
 
-                <button className="btn"
+            <Button variant="outline-success" size="md"
                     onClick={() => {
-                        history.push({ pathname: `/idea/create` })
+                        history.push({ pathname: `/item/create` })
                     }}
-                >Create New Idea</button>
+                >Create New Item</Button>
 
             </div>
-            <article className="lists__list">
-                <h2>All Ideas</h2>
+            <article className="items__list">
+            <center><h2>All Items</h2></center>
                 {items.map(item =>
                     <ItemCard
                         key={item.id}
                         item={item}
-                        />
+                        deleteItem={handleItemDelete} />
                 )}
             </article>
-            
+
 
         </>
     )
