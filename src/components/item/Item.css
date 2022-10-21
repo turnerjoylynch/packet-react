@@ -8,3 +8,17 @@
 .card-content {
     margin: 5
 }
+
+.items__list {
+    padding: 1em;
+    margin: 1em
+}
+
+.card-content {
+    padding: .5em;
+    margin: .5em
+}
+.card-body {
+    padding: .5em;
+    margin: .5em
+}
