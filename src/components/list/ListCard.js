@@ -44,7 +44,7 @@ export const ListCard = ({ list }) => {
                 </Card.Body>
                 <Card.Footer className="text-center">
                     <Link to={`list/${list.id}/edit`}><Button variant="outline-info" size="sm"> Edit List </Button></Link>{' '}
-                    <Link to={`list/${list.id}`}><Button variant="outline-warning" size="sm"> List Details </Button></Link>{' '}
+                    {/* <Link to={`list/${list.id}`}><Button variant="outline-warning" size="sm"> List Details </Button></Link>{' '} */}
                     <Button variant="outline-danger" size="sm" onClick={() => { deleteList(list.id) }}>Delete List</Button>
                 </Card.Footer>
             </Card.Body>

@@ -92,7 +92,7 @@ export const ItemEditForm = () => {
             </fieldset>
             <fieldset>
                 <div className="form-group">
-                    <label htmlFor="title">Name: </label>
+                    <label htmlFor="name">Name: </label>
                     <input
                         type="text"
                         name="item_name"
